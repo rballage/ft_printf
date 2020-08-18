@@ -3,38 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 15:29:09 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/21 18:29:45 by ydonse           ###   ########.fr       */
+/*   Created: 2019/12/12 19:27:22 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/13 12:59:36 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int						ft_atoi(const char *str)
 {
-	int		i;
-	long	nb;
-	int		neg;
+	int					sign;
+	unsigned long long	n;
 
-	i = 0;
-	nb = 0;
-	neg = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	sign = 1;
+	n = 0;
+	while ((*str + 0 <= 13 && *str + 0 >= 9) || *str + 0 == 32)
+		str++;
+	while ((ft_isdigit(*str) || *str == '+' || *str == '-') && *str != '\0')
 	{
-		i++;
+		if ((*str == '-' || *str == '+') && n)
+			break ;
+		if ((*str == '-' || *str == '+') && !(ft_isdigit(str[1])))
+			return (0);
+		if (*str == '-' && ft_isdigit(str[1]))
+			sign = -1;
+		else if (ft_isdigit(*str))
+			n = n * 10 + (*str - 48);
+		str++;
 	}
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			neg = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nb = nb * 10 + (str[i] - '0');
-		i++;
-	}
-	return ((int)(nb * neg));
+	if (n > 9223372036854775807)
+		return (sign == -1 ? 0 : -1);
+	return ((int)(n * sign));
 }

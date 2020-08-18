@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 16:30:32 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/19 14:28:11 by ydonse           ###   ########.fr       */
+/*   Created: 2019/12/12 19:29:55 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/10 12:26:10 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void					*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*tab;
-	unsigned char	lt;
-	size_t			i;
+	const unsigned char	*s2;
+	unsigned char		g;
+	size_t				i;
 
-	tab = (unsigned char *)(s);
-	lt = c;
 	i = 0;
-	while (i < n)
+	s2 = s;
+	g = c;
+	while (++i <= n && n != 0)
 	{
-		if ((tab[i]) == lt)
-			return (&(tab[i]));
-		i++;
+		if (*s2 == g)
+			return ((void*)s2);
+		s2++;
 	}
 	return (NULL);
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:00:56 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/21 11:00:18 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/08/16 11:54:14 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <string.h>
 
 char	*ft_strmap(char const *s, char (*f)(char))
 {

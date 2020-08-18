@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/12 19:32:04 by rballage          #+#    #+#             */
-/*   Updated: 2020/08/16 11:54:39 by rballage         ###   ########.fr       */
+/*   Created: 2020/01/07 15:05:19 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/10 12:25:36 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+void		ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char	*str;
-	size_t	tot;
+	t_list	*tmp1;
+	t_list	*tmp2;
 
-	str = NULL;
-	if (!s1 || !s2)
-		return (NULL);
-	tot = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = ft_strnew(tot)))
-		return (NULL);
-	while (*s1)
-		*str++ = *s1++;
-	while (*s2)
-		*str++ = *s2++;
-	return (str - tot);
+	if (lst && del)
+	{
+		tmp1 = *lst;
+		while (tmp1)
+		{
+			tmp2 = tmp1->next;
+			ft_lstdelone(tmp1, del);
+			tmp1 = tmp2;
+		}
+		*lst = NULL;
+	}
 }

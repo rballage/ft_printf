@@ -6,7 +6,7 @@
 #    By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:39:25 by ydonse            #+#    #+#              #
-#    Updated: 2019/03/04 12:05:42 by ydonse           ###   ########.fr        #
+#    Updated: 2020/08/16 12:18:31 by rballage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ ft_memcpy.c     ft_strchr.c     ft_strmapi.c    ft_toupper.c\
 ft_lstnew.c		ft_lstdelone.c	ft_lstdel.c		ft_lstadd.c\
 ft_lstiter.c	ft_lstmap.c		ft_swap.c		ft_sort_integer_table.c\
 ft_print_words_tables.c		ft_recursive_power.c	ft_sqrt.c\
-ft_strsub_free.c	ft_strdup_free.c	ft_strjoin_free.c get_next_line.c\
+ft_strsub_free.c	ft_strdup_free.c	ft_strjoin_free.c \
 ft_sqrt_high.c ft_get_nbr.c ft_free_tab_str.c ft_llitoa.c ft_lutoa.c\
 ft_longlen.c ft_abs.c
 

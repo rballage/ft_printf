@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 11:20:31 by ydonse            #+#    #+#             */
-/*   Updated: 2019/03/06 09:46:49 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/08/18 09:31:43 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_null(t_plist *list, const char *str_ptr, int ptr)
 	if (!list->type.c)
 	{
 		list->type.c = '.';
-		list->type_str = ft_strnew(1);
+		list->type_str = ft_strnew(0);
 	}
 	else
 	{

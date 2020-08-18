@@ -3,37 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 16:09:47 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/21 11:19:57 by ydonse           ###   ########.fr       */
+/*   Created: 2019/12/12 19:30:34 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/10 12:26:23 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void				*ft_memmove(void *dst, const void *src, size_t n)
 {
-	unsigned char	*tempdst;
-	unsigned char	*tempsrc;
-	size_t			n;
+	unsigned char	*s1;
+	unsigned char	*s2;
+	size_t			i;
 
-	tempdst = (unsigned char *)(dst);
-	tempsrc = (unsigned char *)(src);
-	n = 0;
-	while (n < len)
+	s1 = (unsigned char*)dst;
+	s2 = (unsigned char*)src;
+	i = -1;
+	if (s1 > s2)
 	{
-		if ((tempsrc) < (tempdst))
-		{
-			tempdst[len - 1] = tempsrc[len - 1];
-			len--;
-		}
-		else
-		{
-			tempdst[n] = tempsrc[n];
-			n++;
-		}
+		while (n--)
+			s1[n] = s2[n];
 	}
+	else
+		while (s2 && ++i < n)
+			s1[i] = s2[i];
 	return (dst);
 }

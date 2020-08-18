@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/12 19:32:04 by rballage          #+#    #+#             */
-/*   Updated: 2020/08/16 11:54:39 by rballage         ###   ########.fr       */
+/*   Created: 2019/12/12 19:32:22 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/10 12:31:14 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+size_t		ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	char	*str;
-	size_t	tot;
+	size_t	i;
 
-	str = NULL;
-	if (!s1 || !s2)
-		return (NULL);
-	tot = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = ft_strnew(tot)))
-		return (NULL);
-	while (*s1)
-		*str++ = *s1++;
-	while (*s2)
-		*str++ = *s2++;
-	return (str - tot);
+	if (!src)
+		return (0);
+	i = 0;
+	if (size != 0)
+	{
+		while (i < size - 1 && src[i] != '\0')
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		if (size > 0)
+			dest[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

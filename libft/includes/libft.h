@@ -6,15 +6,16 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:58:15 by ydonse            #+#    #+#             */
-/*   Updated: 2019/02/14 10:19:56 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/08/16 12:22:51 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LIBFT_H
 # define FT_LIBFT_H
-# define BUFF_SIZE 1
 
 # include <string.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 typedef struct		s_gnlist
 {
@@ -30,7 +31,6 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 int					ft_sqrt_high(int nb);
-int					get_next_line(int fd, char **line);
 int					ft_sqrt(int nb);
 int					ft_recursive_power(int nb, int power);
 void				ft_print_words_tables(char **tab);
@@ -82,7 +82,8 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strsub_free(char **s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free(char **s1, char **s2);
-char				*ft_strtrim(char const *s);
+char				*ft_strtrim(char const *s1, char const *set);
+char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
 char				*ft_llitoa(long long n);
@@ -90,8 +91,8 @@ void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
 void				ft_putchar_fd(char c, int fd);
-void				ft_putstr_fd(char const *s, int fd);
-void				ft_putendl_fd(char const *s, int fd);
+void				ft_putstr_fd(char *s, int fd);
+void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));

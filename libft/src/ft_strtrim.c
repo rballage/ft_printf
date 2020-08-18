@@ -3,42 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 11:53:54 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/19 11:25:37 by ydonse           ###   ########.fr       */
+/*   Created: 2019/12/12 19:33:59 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/14 15:39:19 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+char		*ft_strtrim(char const *s1, char const *set)
 {
-	int		i;
-	int		j;
-	char	*str;
+	size_t	i;
+	size_t	len;
 
-	j = 0;
-	if (s)
-	{
-		while (*s == ' ' || *s == '\n' || *s == '\t')
-			s++;
-		i = ft_strlen(s) - 1;
-		while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-			i--;
+	if (s1 == NULL || set == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i] && ft_strchr(set, s1[i]) != NULL)
 		i++;
-		i = (i < 0) ? 0 : i;
-		if (!(str = malloc(sizeof(char) * i + 1)))
-			return (NULL);
-		while (j < i)
-		{
-			str[j] = s[j];
-			j++;
-		}
-		str[j] = '\0';
-		return (str);
-	}
-	return (NULL);
+	len = ft_strlen(&s1[i]);
+	if (len != 0)
+		while (s1[i + len - 1] && ft_strchr(set, s1[i + len - 1]) != NULL)
+			len--;
+	return (ft_substr(s1, i, len));
 }

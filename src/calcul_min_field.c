@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:28:08 by ydonse            #+#    #+#             */
-/*   Updated: 2019/03/04 13:10:55 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/08/16 14:58:22 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int	check_field(t_plist *list, long double nb, int i, char *str)
 	if (list->min_w > list->nb_size && list->min_w > list->dot_size
 		&& !list->minus && list->dot_size >= 0 && list->type_entree == number)
 		i = check_nb_field(list, nb, i, str);
-	if (list->type_entree == character && !list->minus)
+	if (list->type_entree == character && !list->minus
+		&& list->nb_size)
 		i = check_char_field(list, i, str);
 	return (i);
 }

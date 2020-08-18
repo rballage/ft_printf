@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/12 19:32:04 by rballage          #+#    #+#             */
-/*   Updated: 2020/08/16 11:54:39 by rballage         ###   ########.fr       */
+/*   Created: 2019/12/12 19:34:13 by rballage          #+#    #+#             */
+/*   Updated: 2020/08/16 11:53:18 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char		*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*str;
-	size_t	tot;
+	char	*new;
+	size_t	i;
+	size_t	j;
 
-	str = NULL;
-	if (!s1 || !s2)
+	i = 0;
+	j = 0;
+	if (!s || !(new = ft_strnew(len)))
 		return (NULL);
-	tot = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = ft_strnew(tot)))
-		return (NULL);
-	while (*s1)
-		*str++ = *s1++;
-	while (*s2)
-		*str++ = *s2++;
-	return (str - tot);
+	while (s[i])
+	{
+		if (i >= start && j < len)
+			new[j++] = s[i];
+		i++;
+	}
+	new[j] = '\0';
+	return (new);
 }

@@ -3,61 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 11:17:40 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/17 15:44:25 by ydonse           ###   ########.fr       */
+/*   Created: 2019/12/12 19:28:41 by rballage          #+#    #+#             */
+/*   Updated: 2020/08/16 11:52:41 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
-static void		putnb(int i, long l, char *str)
+static size_t	get_len(long nb)
 {
-	char	c;
-	int		j;
+	size_t		i;
 
-	j = l % 10;
-	while (l > 9)
-	{
-		c = '0' + j;
-		str[i] = '0' + j;
-		l /= 10;
-		j = l % 10;
-		i--;
-	}
-	if (i == 0)
-		str[0] = '0' + j;
-	else
-		str[i] = '0' + j;
+	i = 1;
+	while (nb /= 10)
+		i++;
+	return (i);
 }
 
 char			*ft_itoa(int n)
 {
-	char			*str;
-	long			l;
-	int				i;
-	long			origin;
+	char		*str;
+	size_t		len;
+	long		nb;
 
-	l = n;
-	i = 1;
+	nb = n;
+	len = get_len(nb);
 	if (n < 0)
 	{
-		i++;
-		l *= -1;
+		nb = nb - nb - nb;
+		len++;
 	}
-	origin = l;
-	while (l > 9)
-	{
-		l /= 10;
-		i++;
-	}
-	if (!(str = malloc(sizeof(char) * (i + 1))))
+	if (!(str = ft_strnew(len)))
 		return (NULL);
-	str[i] = '\0';
+	str[--len] = nb % 10 + '0';
+	while (nb /= 10)
+		str[--len] = nb % 10 + '0';
 	if (n < 0)
-		str[0] = '-';
-	putnb(i - 1, origin, str);
+		*(str + 0) = '-';
 	return (str);
 }

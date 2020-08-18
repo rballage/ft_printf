@@ -6,11 +6,11 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 12:35:08 by ydonse            #+#    #+#             */
-/*   Updated: 2018/12/21 15:06:58 by fmerding         ###   ########.fr       */
+/*   Updated: 2020/08/16 11:55:31 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 char	*ft_strcpy(char *dst, const char *src)
 {

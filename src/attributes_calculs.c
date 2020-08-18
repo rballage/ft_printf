@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:42:22 by ydonse            #+#    #+#             */
-/*   Updated: 2019/03/04 11:57:12 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/08/18 11:35:13 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,24 +95,25 @@ int		check_float_attributes(t_plist *list, long double nb, int i, char *str)
 char	*add_attributes(t_plist *list, long double nb)
 {
 	char	*str;
-	int		i;
+	// int		i;
 	int		attribute_size;
-	char	**save;
+	// char	**save;
 
-	if (!(save = (char**)malloc(sizeof(char*))))
-		return (NULL);
-	save[0] = list->type_str;
+	// if (!(save = (char**)malloc(sizeof(char*))))
+	// 	return (NULL);
+	// save[0] = list->type_str;
 	list->nb_size = ft_strlen(list->type_str);
 	attribute_size = get_attributes_length(list, 0);
-	if (!(str = (char *)malloc(sizeof(char) * list->nb_size
-		+ attribute_size + 1)))
-		return (NULL);
-	ft_bzero(str, list->nb_size + attribute_size + 1);
+	// if (!(str = (char *)malloc(sizeof(char) * (list->nb_size
+	// 	+ attribute_size) + 1)))
+	// 	return (NULL);
+	str = ft_strnew(list->nb_size + attribute_size);
+	// ft_bzero(str, list->nb_size + attribute_size + 1);
 	if (list->f_type)
-		i = check_float_attributes(list, nb, 0, str);
+		check_float_attributes(list, nb, 0, str);
 	else
-		i = check_normal_attributes(list, nb, 0, str);
-	ft_strdel(save);
-	free(save);
+		check_normal_attributes(list, nb, 0, str);
+	// ft_strdel(save);
+	// free(save);
 	return (str);
 }

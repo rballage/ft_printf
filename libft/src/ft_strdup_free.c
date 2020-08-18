@@ -6,12 +6,10 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 20:18:53 by ydonse            #+#    #+#             */
-/*   Updated: 2018/12/21 15:07:01 by fmerding         ###   ########.fr       */
+/*   Updated: 2020/08/16 11:56:08 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strdup_free(char **s1)

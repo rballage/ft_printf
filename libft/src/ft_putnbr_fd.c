@@ -3,41 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 11:29:47 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/17 12:00:17 by ydonse           ###   ########.fr       */
+/*   Created: 2019/12/12 19:31:19 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/06 16:25:17 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-static void		ft_printnb(long nb, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char c;
-
-	if (nb > 9)
+	if (n < 0)
 	{
-		ft_printnb(nb / 10, fd);
-		c = '0' + nb % 10;
-		write(fd, &c, 1);
+		n = n * -1;
+		ft_putchar_fd('-', fd);
+	}
+	if (n == -2147483648)
+	{
+		ft_putchar_fd('2', fd);
+		n = 147483648;
+	}
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
 	}
 	else
-	{
-		c = nb + '0';
-		write(fd, &c, 1);
-	}
-}
-
-void			ft_putnbr_fd(int n, int fd)
-{
-	long l;
-
-	l = n;
-	if (l < 0)
-	{
-		write(fd, "-", 1);
-		l *= -1;
-	}
-	ft_printnb(l, fd);
+		ft_putchar_fd('0' + n, fd);
 }

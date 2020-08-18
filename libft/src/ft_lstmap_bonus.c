@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/12 19:32:04 by rballage          #+#    #+#             */
-/*   Updated: 2020/08/16 11:54:39 by rballage         ###   ########.fr       */
+/*   Created: 2019/12/12 19:29:11 by rballage          #+#    #+#             */
+/*   Updated: 2020/01/10 12:31:55 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char	*str;
-	size_t	tot;
+	t_list	*new;
+	t_list	*tmp;
 
-	str = NULL;
-	if (!s1 || !s2)
-		return (NULL);
-	tot = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = ft_strnew(tot)))
-		return (NULL);
-	while (*s1)
-		*str++ = *s1++;
-	while (*s2)
-		*str++ = *s2++;
-	return (str - tot);
+	if (lst && f)
+	{
+		if (!(new = ft_lstnew(f(lst->content))))
+			return (NULL);
+		lst = lst->next;
+		while (lst)
+		{
+			if (!(tmp = ft_lstnew(f(lst->content))))
+			{
+				ft_lstclear(&new, del);
+				return (NULL);
+			}
+			ft_lstadd_back(&new, tmp);
+			lst = lst->next;
+		}
+		return (new);
+	}
+	return (NULL);
 }
