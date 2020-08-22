@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:28:08 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/16 14:58:22 by rballage         ###   ########.fr       */
+/*   Updated: 2020/08/18 19:08:04 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,11 @@ int	fill_nb_field(t_plist *list, int i, int j, char *str)
 
 	c = list->zero ? '0' : ' ';
 	if (list->dot_size > list->nb_size)
-	{
 		while (j++ < list->min_w - list->dot_size)
 			str[i++] = c;
-	}
 	else
-	{
 		while (j++ < list->min_w - list->nb_size)
 			str[i++] = c;
-	}
 	return (i);
 }
 

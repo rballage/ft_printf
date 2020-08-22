@@ -6,30 +6,23 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 11:27:16 by rballage          #+#    #+#             */
-/*   Updated: 2019/03/06 12:43:31 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/08/21 17:06:35 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char		*ft_strjoinf(char const *s1, char const *s2)
+static t_sfloat	*init_sfloat(int zap, long long i_part, long double num)
 {
-	char				*str;
-	size_t				len1;
-	size_t				len2;
+	t_sfloat *sfloat;
 
-	if (!s1 || !s2)
+	if (!(sfloat = (t_sfloat*)malloc(sizeof(t_sfloat))))
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	if (!(str = ft_memalloc(len1 + len2 + 1)))
-		return (NULL);
-	str[len1 + len2] = '\0';
-	ft_memcpy(str, s1, len1);
-	ft_memcpy((str + len1), s2, len2);
-	ft_memdel((void **)&s1);
-	ft_memdel((void **)&s2);
-	return (str);
+	sfloat->zap = zap;
+	sfloat->i_part = i_part;
+	sfloat->num = num;
+	sfloat->s = NULL;
+	return (sfloat);
 }
 
 static char		*jftoa(char const *s1, int fp, char sign, t_sfloat *l)

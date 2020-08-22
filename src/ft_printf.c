@@ -25,8 +25,8 @@ void	assemble_str(t_plist *list, const char *restrict format, char *str)
 	{
 		if (format[j] == '%' && format[j + 1])
 		{
-			while (list->type_str[k])
-				str[i++] = list->type_str[k++];
+			while (list->res[k])
+				str[i++] = list->res[k++];
 			if (list->type_entree == character && list->type.c == '\0' && !list->minus)
 				str[i++] = '\0';
 			k = 0;
@@ -60,7 +60,7 @@ int		get_full_str_size(t_plist *list, const char *restrict format)
 			else
 				// printf("%s skip:%d\n", "0 non detecté", list->skip);
 
-			i += ft_strlen(list->type_str);
+			i += ft_strlen(list->res);
 			j += list->skip;
 			list = list->next;
 		}

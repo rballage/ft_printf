@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 14:49:47 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/18 08:57:26 by rballage         ###   ########.fr       */
+/*   Updated: 2020/08/18 17:58:38 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_plist	*new_list(void)
 	if (!(list = malloc(sizeof(t_plist))))
 		exit(0);
 	list->next = NULL;
-	list->type_str = NULL;
+	list->res = NULL;
 	list->skip = 1;
 	list->mode = 0;
 	list->sharp = 0;
@@ -50,7 +50,7 @@ t_plist	*fill_list(const char *restrict format, va_list *ap, t_plist *list)
 	{
 		if (*format == '%' && format[1])
 		{
-			check_attribute_1(list, &(format[1]), ap);
+			check_attributes(list, &(format[1]), ap);
 			if (list->percent)
 			{
 				format++;
@@ -72,7 +72,7 @@ void	free_list(t_plist *list)
 	while (list)
 	{
 		current = list;
-		ft_strdel(&(list->type_str));
+		ft_strdel(&(list->res));
 		list = list->next;
 		free(current);
 	}

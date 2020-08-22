@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:42:22 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/18 11:35:13 by rballage         ###   ########.fr       */
+/*   Updated: 2020/08/18 18:46:28 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int		get_attributes_length(t_plist *list, int i)
 {
-	int n_size;
-
-	n_size = ft_strlen(list->type_str);
 	if (list->sharp)
 		i += 2;
 	if (list->plus == 1 || list->space == 1)
@@ -24,9 +21,7 @@ int		get_attributes_length(t_plist *list, int i)
 	if (list->dot)
 		i += ft_abs(list->dot_size);
 	if (list->min_w > 0)
-	{
 		i += list->min_w;
-	}
 	return (i);
 }
 
@@ -34,13 +29,13 @@ int		check_if_copy(t_plist *list, long double nb, int i, char *str)
 {
 	int size;
 
-	size = ft_strlen(list->type_str);
+	size = ft_strlen(list->res);
 	if (!(list->dot && !list->dot_size && !nb && list->type_entree == number))
 	{
 		if (list->type_entree == character && list->dot &&
 			list->dot_size < size && list->string)
 		{
-			ft_strncpy(&str[i], list->type_str, list->dot_size);
+			ft_strncpy(&str[i], list->res, list->dot_size);
 			str[i + list->dot_size] = '\0';
 			i += list->dot_size;
 		}
@@ -48,10 +43,10 @@ int		check_if_copy(t_plist *list, long double nb, int i, char *str)
 		{
 			if (list->zero && nb < 0)
 			{
-				list->type_str++;
+				list->res++;
 				size--;
 			}
-			ft_strcpy(&str[i], list->type_str);
+			ft_strcpy(&str[i], list->res);
 			i += size;
 			str[i] = '\0';
 		}
@@ -101,8 +96,8 @@ char	*add_attributes(t_plist *list, long double nb)
 
 	// if (!(save = (char**)malloc(sizeof(char*))))
 	// 	return (NULL);
-	// save[0] = list->type_str;
-	list->nb_size = ft_strlen(list->type_str);
+	// save[0] = list->res;
+	list->nb_size = ft_strlen(list->res);
 	attribute_size = get_attributes_length(list, 0);
 	// if (!(str = (char *)malloc(sizeof(char) * (list->nb_size
 	// 	+ attribute_size) + 1)))

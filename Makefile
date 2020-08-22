@@ -19,7 +19,7 @@ SRC_NAME =  main.c ft_printf.c list.c ft_ftoa.c convert.c \
 			attributes_calculs.c calcul_plus.c calcul_sharp.c \
 			calcul_precision.c calcul_min_field.c handle_h.c handle_hh.c \
 			attribute_check.c attribute_check_2.c calcul_neg_min_field.c \
-			check_modifiers.c handle_du.c handle_bases.c handle_scp.c\
+			check_cast_modifiers.c handle_du.c handle_bases.c handle_scp.c\
 			check_other_modifiers.c
 
 CPPFLAGS = -I libft/includes/ -MMD

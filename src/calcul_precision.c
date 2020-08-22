@@ -22,7 +22,7 @@ int	check_precision(t_plist *list, long double nb, int i, char *str)
 		if (nb < 0)
 		{
 			str[i++] = '-';
-			list->type_str++;
+			list->res++;
 		}
 		while (j < list->dot_size)
 		{

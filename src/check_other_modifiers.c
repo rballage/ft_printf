@@ -6,47 +6,13 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 11:20:31 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/18 09:31:43 by rballage         ###   ########.fr       */
+/*   Updated: 2020/08/21 19:48:19 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	handle_null(t_plist *list, const char *str_ptr, int ptr)
-{
-	list->type.c = *str_ptr;
-	if (!list->type.c)
-	{
-		list->type.c = '.';
-		list->type_str = ft_strnew(0);
-	}
-	else
-	{
-		list->type_str = ft_strdup(&(list->type.c));
-	}
-	list->type_entree = character;
-	list->skip += ptr;
-	if (list->type_str[0] == '\0')
-		list->skip--;
-	list->type_str = add_attributes(list, 0);
-}
-
-int		flags_cmp(const char *str, const char *flags, int size)
-{
-	int	j;
-
-	j = 0;
-	while (j < size && flags[j])
-	{
-		if (str[0] == flags[j])
-			return (j);
-		else
-			j++;
-	}
-	return (-1);
-}
-
-void	check_ll_type(t_plist *list, const char *str_ptr, va_list *ap,
+void	check_ll_type(t_plist *list, const char *format, va_list *ap,
 	int skip)
 {
 	int			i;
@@ -55,26 +21,25 @@ void	check_ll_type(t_plist *list, const char *str_ptr, va_list *ap,
 		handle_llx_maj, handle_llu};
 
 	i = 0;
-	if ((i = flags_cmp(str_ptr + 1, "diuoxXU", 7)) != -1)
+	if ((i = search_setters(format + 1, "diuoxXU")) != -1)
 		function_ll[i](list, ap, skip);
-	else if (flags_cmp(str_ptr + 1, "hlLjz", 5) != -1)
+	else if (search_setters(format + 1, "hlLjz") != -1)
 	{
-		while (flags_cmp(str_ptr + 1, "hlLjz", 5) != -1)
+		while (search_setters(format + 1, "hlLjz") != -1)
 		{
-			str_ptr++;
+			format++;
 			skip++;
 		}
-		if ((i = flags_cmp(str_ptr + 1, "diuoxXU", 7)) != -1)
+		if ((i = search_setters(format + 1, "diuoxXU")) != -1)
 			function_ll[i](list, ap, skip);
 		else
-			handle_null(list, str_ptr + 1, skip);
+			handle_null(list, format + 1, skip);
 	}
 	else
-		handle_null(list, str_ptr + 1, skip);
+		handle_null(list, format + 1, skip);
 }
 
-void	check_hh_type(t_plist *list, const char *str_ptr, va_list *ap,
-	int skip)
+void	check_hh_type(t_plist *list, const char *format, va_list *ap, int skip)
 {
 	int			i;
 	static void (*function_hh[])(struct s_plist*, __builtin_va_list*,
@@ -82,41 +47,41 @@ void	check_hh_type(t_plist *list, const char *str_ptr, va_list *ap,
 		handle_hhx, handle_hhx_maj};
 
 	i = 0;
-	if ((i = flags_cmp(str_ptr + 1, "diuoxXU", 7)) != -1)
+	if ((i = search_setters(format + 1, "diuoxXU")) != -1)
 		function_hh[i](list, ap, skip);
-	else if (flags_cmp(str_ptr + 1, "hlLjz", 5) != -1)
+	else if (search_setters(format + 1, "hlLjz") != -1)
 	{
-		while (flags_cmp(str_ptr + 1, "hlLjz", 5) != -1)
+		while (search_setters(format + 1, "hlLjz") != -1)
 		{
-			str_ptr++;
+			format++;
 			skip++;
 		}
-		if ((i = flags_cmp(str_ptr + 1, "diuoxXU", 7)) != -1)
+		if ((i = search_setters(format + 1, "diuoxXU")) != -1)
 			function_hh[i](list, ap, skip);
 		else
-			handle_null(list, str_ptr + 1, skip);
+			handle_null(list, format + 1, skip);
 	}
 	else
-		handle_null(list, str_ptr + 1, skip);
+		handle_null(list, format + 1, skip);
 }
 
-void	check_l_maj_type(t_plist *list, const char *str_ptr,
+void	check_l_maj_type(t_plist *list, const char *format,
 	va_list *ap, int skip)
 {
-	if (str_ptr[1] == 'f')
-		handle_maj_lf(list, ap, skip);
-	else if (flags_cmp(str_ptr + 1, "hlLjz", 5) != -1)
+	if (format + 1 == 'f')
+		handle_lf_maj(list, ap, skip);
+	else if (search_setters(format + 1, "hlLjz") != -1)
 	{
-		while (flags_cmp(str_ptr + 1, "hlLjz", 5) != -1)
+		while (search_setters(format + 1, "hlLjz") != -1)
 		{
-			str_ptr++;
+			format++;
 			skip++;
 		}
-		if (str_ptr[1] == 'f')
-			handle_maj_lf(list, ap, skip);
+		if (format + 1 == 'f')
+			handle_lf_maj(list, ap, skip);
 		else
-			handle_null(list, str_ptr + 1, skip);
+			handle_null(list, format + 1, skip);
 	}
 	else
-		handle_null(list, str_ptr + 1, 2);
+		handle_null(list, format + 1, 2);
 }
