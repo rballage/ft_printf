@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 10:15:36 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/18 12:05:01 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/01 12:34:35 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,20 @@ void	assemble_str(t_plist *list, const char *restrict format, char *str)
 	{
 		if (format[j] == '%' && format[j + 1])
 		{
-			while (list->res[k])
-				str[i++] = list->res[k++];
-			if (list->type_entree == character && list->type.c == '\0' && !list->minus)
-				str[i++] = '\0';
+
+			// else if (list->type_entree == character && list->type.c == '\0' && list->minus)
+			// {
+			// 	str[i++] = '\0';
+			// 	k++;
+			// }
+			if (list->reslen && list->type_entree == character && list->type.c == '\0' && list->nb_size == 1 && !list->string)
+				while (k < list->reslen)
+					str[i++] = list->res[k++];
+			else
+				while (list->res[k])
+					str[i++] = list->res[k++];
+			// if (list->type_entree == character && list->type.c == '\0' && list->nb_size == 1)
+			// 	str[i++] = '\0';
 			k = 0;
 			j += list->skip;
 			list = list->next;
@@ -52,15 +62,13 @@ int		get_full_str_size(t_plist *list, const char *restrict format)
 	{
 		if (format[j] == '%' && format[j + 1])
 		{
-			if (list->type_entree == character && list->type.c == '\0')
-			{
-				i++;
-				// printf("%s skip:%d\n", "0 detecté", list->skip);
-			}
+			if (list->nb_size == 1 && list->type_entree == character && list->type.c == '\0' && !list->string)
+				i += list->reslen;
 			else
+				i += ft_strlen(list->res);
 				// printf("%s skip:%d\n", "0 non detecté", list->skip);
 
-			i += ft_strlen(list->res);
+
 			j += list->skip;
 			list = list->next;
 		}
@@ -91,11 +99,6 @@ int		write_full_str(t_plist *list, const char *restrict format)
 	str = ft_strnew(size);
 	list = origin;
 	assemble_str(list, format, str);
-	if (!list->nb_size && list->type_entree == character && list->type.c == '\0' && list->minus && list->min_w && !list->string)
-	{
-		str[0] = '\0';
-		size--;
-	}
 	i = write(1, str, size);
 	ft_strdel(&str);
 	return (i);

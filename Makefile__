@@ -6,11 +6,11 @@
 #    By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:39:25 by ydonse            #+#    #+#              #
-#    Updated: 2020/09/10 19:27:13 by rballage         ###   ########.fr        #
+#    Updated: 2020/09/01 10:50:28 by rballage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = a.out
 
 SRC_PATH = src
 
@@ -55,6 +55,7 @@ SRC_NAME =  handle_c.c \
 			set_space.c \
 			set_zero.c \
 			ft_baselen.c \
+			ft_rstring.c \
 			ft_strjoinf.c \
 			search_setters.c \
 			attribute_check.c \
@@ -70,19 +71,22 @@ SRC_NAME =  handle_c.c \
 			conv_octal.c \
 			ft_ftoa.c \
 			ft_printf.c \
-			list.c
+			list.c \
+			main.c
 
 CPPFLAGS = -I libft/includes/ -MMD
 
+LDFLAGS = -L libft/ -lft
+
 CC = gcc
 
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS =  -Werror -Wall -Wextra
+
+DFLAGS = -ggdb
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 OBJ_PATH = obj
-
-DFLAGS = 
 
 HEADER_PATH = includes/
 
@@ -97,10 +101,9 @@ HEADER = $(addprefix $(HEADER_PATH)/,$(HEADER_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(MAKE) -C libft/
-	cp libft/libft.a ./$(NAME)
-	ar rcs $@ $^
-	ranlib $@
+	make -C libft/
+	$(CC) $(CFLAGS) $(DFLAGS) $(LDFLAGS) $^ -o a.out
+
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
 	$(CC) $(CFLAGS) $(DFLAGS) $(CPPFLAGS) -I $(HEADER_PATH) -o $@ -c $<

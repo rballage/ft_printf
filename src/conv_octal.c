@@ -3,11 +3,9 @@
 
 char	*convert_octal(unsigned long long nb)
 {
-	unsigned long long		nb_cpy;
 	int						i;
 	char					*str;
 
-	nb_cpy = nb;
 	i = ft_baselen(nb, 8);
 	if (!(str = malloc(sizeof(char) * (i + 1))))
 		return (0);

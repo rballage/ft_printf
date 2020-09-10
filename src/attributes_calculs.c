@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:42:22 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/18 18:46:28 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/09 14:51:21 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		get_attributes_length(t_plist *list, int i)
 	if (list->plus == 1 || list->space == 1)
 		i += 1;
 	if (list->dot)
-		i += ft_abs(list->dot_size);
+		i += ft_abs(list->precision);
 	if (list->min_w > 0)
 		i += list->min_w;
 	return (i);
@@ -30,14 +30,14 @@ int		check_if_copy(t_plist *list, long double nb, int i, char *str)
 	int size;
 
 	size = ft_strlen(list->res);
-	if (!(list->dot && !list->dot_size && !nb && list->type_entree == number))
+	if (!(list->dot && !list->precision && !nb && list->type_entree == number))
 	{
 		if (list->type_entree == character && list->dot &&
-			list->dot_size < size && list->string)
+			list->precision < size && list->string)
 		{
-			ft_strncpy(&str[i], list->res, list->dot_size);
-			str[i + list->dot_size] = '\0';
-			i += list->dot_size;
+			ft_strncpy(&str[i], list->res, list->precision);
+			str[i + list->precision] = '\0';
+			i += list->precision;
 		}
 		else
 		{
@@ -46,8 +46,13 @@ int		check_if_copy(t_plist *list, long double nb, int i, char *str)
 				list->res++;
 				size--;
 			}
-			ft_strcpy(&str[i], list->res);
-			i += size;
+			if (list->type_entree == character && list->nb_size == 1
+			&& !list->string)
+				str[i] = list->type.c;
+			else
+				ft_strcpy(&str[i], list->res);
+			i += (!size && list->type.c == '\0'
+			&& list->type_entree == character  && list->nb_size == 1) ? 1 : size;
 			str[i] = '\0';
 		}
 	}
@@ -65,12 +70,12 @@ int		check_normal_attributes(t_plist *list, long double nb, int i, char *str)
 	i = check_sharp_hexa_field(list, nb, i, str);
 	if (!list->zero)
 		i = check_plus(list, nb, i, str);
-	i = check_precision(list, nb, i, str);
+	i = pad_r_zero(list, nb, i, str);
 	i = check_sharp_octal(list, nb, i, str);
 	i = check_sharp_hexa(list, nb, i, str);
 	i = check_if_copy(list, nb, i, str);
 	i = check_field_minus(list, nb, i, str);
-	i = check_negative_precision(list, i, str);
+	i = pad_l_spaces(list, i, str);
 	return (i);
 }
 
@@ -90,25 +95,18 @@ int		check_float_attributes(t_plist *list, long double nb, int i, char *str)
 char	*add_attributes(t_plist *list, long double nb)
 {
 	char	*str;
-	// int		i;
 	int		attribute_size;
-	// char	**save;
 
-	// if (!(save = (char**)malloc(sizeof(char*))))
-	// 	return (NULL);
-	// save[0] = list->res;
-	list->nb_size = ft_strlen(list->res);
+	if (!nb && list->type.c == '\0' && !list->nb_size
+	&& list->type_entree == character  && !list->string)
+		list->nb_size = 1;
+	else
+		list->nb_size = ft_strlen(list->res);
 	attribute_size = get_attributes_length(list, 0);
-	// if (!(str = (char *)malloc(sizeof(char) * (list->nb_size
-	// 	+ attribute_size) + 1)))
-	// 	return (NULL);
 	str = ft_strnew(list->nb_size + attribute_size);
-	// ft_bzero(str, list->nb_size + attribute_size + 1);
 	if (list->f_type)
 		check_float_attributes(list, nb, 0, str);
 	else
 		check_normal_attributes(list, nb, 0, str);
-	// ft_strdel(save);
-	// free(save);
 	return (str);
 }

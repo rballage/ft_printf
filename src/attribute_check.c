@@ -6,30 +6,47 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 16:53:15 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/21 19:37:45 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/10 19:08:13 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+int			chck_star(t_plist *list, const char *fmt, va_list *ap, t_bool field)
+{
+	if (*fmt == '*')
+	{
+		list->has_star = true;
+		list->star_value = (int)va_arg(*ap, int);
+		list->skip++;
+		if (list->star_value < 0 && field)
+		{
+			list->minus = 1;
+			list->star_value *= -1;
+		}
+		if (field)
+			set_field(list, fmt, ap);
+		return (1);
+	}
+	return (0);
+}
+
 void		check_attributes(t_plist *list, const char *format, va_list *ap)
 {
-	static const char	attributes[] = "0123456789-+.# ";
-	static void	(*setters[])(t_plist*, const char *) = { &set_zero,
-		&set_field, &set_field, &set_field,
-		&set_field, &set_field, &set_field, &set_field,
-		&set_field, &set_field, &set_minus, &set_plus,
+	static const char	attributes[] = "0123456789-+.# *";
+	static int	(*setters[])(t_plist*, const char *, __builtin_va_list*)
+	= { &set_zero, &set_field, &set_field, &set_field, &set_field, &set_field,
+		&set_field, &set_field, &set_field, &set_field, &set_minus, &set_plus,
 		&set_precision, &set_sharp, &set_space};
 	int					i;
 
-	i = 0;
+	i = -1;
+	format += chck_star(list, format, ap, true);
 	while ((i = search_setters(*format, attributes)) > -1)
 	{
-		setters[i](list, format);
-		format += (i == 12) ? 1 : 0;
-		if ((i > 0 && i < 10) || i == 12)
-			while (*format >= '0' && *format <= '9')
-				format++;
+		if (i != 15)
+			format += (chck_star(list, format + 1, ap, i == 12 ? false : true)
+			+ setters[i](list, format, ap));
 		else
 			format++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 11:27:16 by rballage          #+#    #+#             */
-/*   Updated: 2020/08/21 17:06:35 by rballage         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:35:19 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void		f_part(t_plist *l, t_sfloat *fl)
 
 	i = 0;
 	nines = 0;
-	while (i + fl->zap < l->dot_size && (long long)(fl->num * 10.0) >= 0)
+	while (i + fl->zap < l->precision && (long long)(fl->num * 10.0) >= 0)
 	{
 		((fl->num *= 10.0) < 1.0) ? fl->zap++ : i++;
 		nines += ((((long long)(fl->num)) % 10 == 9) ? 1 : 0);
@@ -79,14 +79,14 @@ static void		f_part(t_plist *l, t_sfloat *fl)
 	(fl->num == 0.0) ? fl->zap-- : (fl->zap -= 0);
 	if ((long long)fl->num == 0)
 		i++;
-	if (nines == l->dot_size && ((((long long)(fl->num * 10.0)) % 10) >= 5))
+	if (nines == l->precision && ((((long long)(fl->num * 10.0)) % 10) >= 5))
 	{
-		fl->s = fill_zero(l->dot_size);
+		fl->s = fill_zero(l->precision);
 		fl->i_part += 1;
 	}
 	else
 		fl->s = ft_strjoinf((ft_llitoa((long long)(fl->num))), (fill_zero((
-		l->dot_size - (i + fl->zap) > 0) ? l->dot_size - (i + fl->zap) : 0)));
+		l->precision - (i + fl->zap) > 0) ? l->precision - (i + fl->zap) : 0)));
 }
 
 char			*ft_ftoa_ld(long double num, char sign, t_plist *l)
@@ -96,9 +96,9 @@ char			*ft_ftoa_ld(long double num, char sign, t_plist *l)
 	if (num < 0.0)
 		num *= -1.0;
 	if (!(l->dot))
-		l->dot_size = 6;
+		l->precision = 6;
 	tf = init_sfloat(0, ((long long)(num)), (num - (long long)num));
-	if (l->dot_size > 0)
+	if (l->precision > 0)
 		f_part(l, tf);
 	else
 	{
@@ -106,5 +106,5 @@ char			*ft_ftoa_ld(long double num, char sign, t_plist *l)
 		tf->s = ft_strnew(1);
 	}
 	return (jftoa((ft_llitoa(tf->i_part)), ((ft_strlen(tf->s) + tf->zap)
-	> (size_t)l->dot_size && tf->zap) ? tf->zap - 1 : tf->zap, sign, tf));
+	> (size_t)l->precision && tf->zap) ? tf->zap - 1 : tf->zap, sign, tf));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strstr.c                                           :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:01:37 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/21 09:54:23 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/09/08 16:21:40 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ static int	verif(const char *haystack, const char *needle, int i)
 {
 	int j;
 	int needle_size;
-	int count;
 
 	j = 0;
-	count = 0;
 	needle_size = ft_strlen(needle);
 	while (needle[j])
 	{

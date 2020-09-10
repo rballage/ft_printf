@@ -6,13 +6,13 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 10:37:44 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/22 14:57:36 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/10 18:16:39 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include "libft.h"
+# include "../libft/includes/libft.h"
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -49,9 +49,9 @@ typedef union			u_type
 	unsigned short		us;
 	int					i;
 	unsigned int		u;
-	long				l;
-	long long			ll;
-	unsigned long		lu;
+	long int			l;
+	long long int		ll;
+	unsigned long int	lu;
 	unsigned long long	llu;
 	float				f;
 	double				lf;
@@ -66,19 +66,23 @@ typedef struct			s_plist
 	t_type				type;
 	t_bool				finish;
 	t_bool				string;
+	t_bool				has_star;
+	t_bool				undef_behavior;
 	short				mode;
 	short				sharp;
 	short				plus;
 	short				minus;
-	int					min_w;
+	long long			min_w;
 	short				dot;
-	int					dot_size;
+	long long			precision;
 	short				zero;
 	short				space;
 	char				*res;
+	long long			reslen;
 	int					skip;
+	int					star_value;
 	t_data				type_entree;
-	int					nb_size;
+	long long			nb_size;
 	t_bool				percent;
 	t_bool				sharp_placed;
 	t_bool				f_type;
@@ -87,8 +91,8 @@ typedef struct			s_plist
 	struct s_plist		*next;
 }						t_plist;
 
-
 char					*ft_strjoinf(char *s1, char *s2);
+char					*ft_strnjoinf(char *s1, int n1, char *s2, int n2);
 char					*add_attributes(t_plist *list, long double nb);
 void					check_attributes(t_plist *list, const char *format,
 						va_list *ap);
@@ -112,11 +116,11 @@ int						check_nb_field(t_plist *list, long double nb, int i,
 						char *str);
 int						check_nb_field_minus(t_plist *list, long double nb,
 						int i, char *str);
-int						check_negative_precision(t_plist *list, int i,
+int						pad_l_spaces(t_plist *list, int i,
 						char *str);
 int						check_plus(t_plist *list, long double nb, int i,
 						char *str);
-int						check_precision(t_plist *list, long double nb, int i,
+int						pad_r_zero(t_plist *list, long double nb, int i,
 						char *str);
 int						check_sharp_hexa(t_plist *list, long double nb, int i,
 						char *str);
@@ -132,11 +136,11 @@ char					*convert_hexa(unsigned long long nb, t_plist *list);
 char					*convert_octal(unsigned long long nb);
 t_plist					*fill_list(const char *restrict format, va_list *ap,
 						t_plist *list);
-int						search_setters(const char *str, const char *flags, int size);
+int						search_setters(char c, const char *flags);
+int						ft_baselen(unsigned long long nb,
+						unsigned long long base);
 void					free_list(t_plist *list);
 char					*ft_ftoa_ld(long double num, char sign, t_plist *list);
-// t_sfloat				*init_sfloat(int zap, long long i_part,
-						// long double num);
 int						ft_printf(const char *restrict format, ...);
 int						get_attributes_length(t_plist *list, int i);
 void					handle_d(t_plist *list, va_list *ap, int skip);
@@ -172,13 +176,18 @@ void					handle_llx(t_plist *list, va_list *ap, int skip);
 void					handle_lx_maj(t_plist *list, va_list *ap, int skip);
 void					handle_llx_maj(t_plist *list, va_list *ap, int skip);
 void					handle_null(t_plist *list, const char *strptr, int ptr);
-void					handle_sharp(t_plist *list, const char *format);
-void					handle_plus(t_plist *list, const char *format);
-void					handle_minus(t_plist *list, const char *format);
-void					handle_zero(t_plist *list, const char *format);
-void					handle_space(t_plist *list, const char *format);
-void					handle_field(t_plist *list, const char *format);
-void					handle_precision(t_plist *list, const char *format);
+int						set_sharp(t_plist *list, const char *format,
+						va_list *ap);
+int						set_plus(t_plist *list, const char *format,va_list *ap);
+int						set_minus(t_plist *list, const char *format,
+						va_list *ap);
+int						set_zero(t_plist *list, const char *format,va_list *ap);
+int						set_space(t_plist *list, const char *format,
+						va_list *ap);
+int						set_field(t_plist *list, const char *format,
+						va_list *ap);
+int						set_precision(t_plist *list, const char *format,
+						va_list *ap);
 void					check_cast_modifiers(t_plist *list, const char *format,
 						va_list *ap);
 int						check_field_minus(t_plist *list, long double nb,
@@ -187,4 +196,6 @@ t_plist					*new_list(void);
 char					*pf_strncpy(char *dst, const char *src, size_t len);
 int						write_full_str(t_plist *list, const char *restrict
 						format);
+int						chck_star(t_plist *list, const char *fmt, va_list *ap,
+						t_bool start);
 #endif

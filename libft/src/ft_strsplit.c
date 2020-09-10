@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 16:04:55 by ydonse            #+#    #+#             */
-/*   Updated: 2018/11/21 11:28:44 by ydonse           ###   ########.fr       */
+/*   Updated: 2020/09/08 16:20:24 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ static void	cpy(char const *s, char c, char *str, int nb)
 {
 	int i;
 	int j;
-	int len;
 
 	i = 0;
 	j = -1;
-	len = 0;
 	if (s[i] != c)
 		j++;
 	while (s[i] && j < nb)

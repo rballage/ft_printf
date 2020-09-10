@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 14:49:47 by ydonse            #+#    #+#             */
-/*   Updated: 2020/08/18 17:58:38 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:53:30 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ t_plist	*new_list(void)
 	list->next = NULL;
 	list->res = NULL;
 	list->skip = 1;
+	list->undef_behavior = false;
+	list->has_star = false;
+	list->star_value = 0;
 	list->mode = 0;
 	list->sharp = 0;
 	list->minus = 0;
@@ -28,7 +31,7 @@ t_plist	*new_list(void)
 	list->zero = 0;
 	list->space = 0;
 	list->dot = 0;
-	list->dot_size = 0;
+	list->precision = 0;
 	list->min_w = 0;
 	list->string = 0;
 	list->type_entree = number;
@@ -72,7 +75,7 @@ void	free_list(t_plist *list)
 	while (list)
 	{
 		current = list;
-		ft_strdel(&(list->res));
+		free(list->res);
 		list = list->next;
 		free(current);
 	}
