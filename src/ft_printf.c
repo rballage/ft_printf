@@ -6,7 +6,7 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 18:00:07 by rballage          #+#    #+#             */
-/*   Updated: 2020/09/13 20:48:24 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/13 22:53:23 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			write_full_str(t_plist *list, const char *fmt)
 	list = origin;
 	assemble_str(list, fmt, str);
 	i = write(1, str, size);
-	ft_strdel(&str);
+	free(str);
 	return (i);
 }
 

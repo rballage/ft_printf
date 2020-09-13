@@ -6,7 +6,7 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 17:40:54 by rballage          #+#    #+#             */
-/*   Updated: 2020/01/15 11:37:39 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/13 22:49:43 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,12 @@ char			*ft_strrev(char *str);
 void			ft_swap(int *a, int *b);
 int				ft_strcmp(const char *s1, const char *s2);
 void			ft_memdel(void **ap);
+char			*ft_llitoa(long long n);
+long			ft_abs(long nb);
+char			*ft_lutoa(unsigned long n);
+
+
+
 
 
 
