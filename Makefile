@@ -6,7 +6,7 @@
 #    By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:39:25 by ydonse            #+#    #+#              #
-#    Updated: 2020/09/13 21:51:25 by rballage         ###   ########.fr        #
+#    Updated: 2020/09/13 22:43:08 by rballage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ SRC_NAME =  handle_c.c \
 			set_space.c \
 			set_zero.c \
 			ft_baselen.c \
-			ft_strjoinf.c \
 			search_setters.c \
 			attribute_check.c \
 			attributes_copy.c \

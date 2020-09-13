@@ -6,7 +6,7 @@
 /*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 10:37:44 by ydonse            #+#    #+#             */
-/*   Updated: 2020/09/13 21:44:53 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/13 22:43:39 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef struct			s_plist
 	struct s_plist		*next;
 }						t_plist;
 
-char					*ft_strjoinf(char *s1, char *s2);
 char					*add_attributes(t_plist *list, long double nb);
 void					check_attributes(t_plist *list, const char *fmt,
 						va_list *ap);
