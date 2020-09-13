@@ -3,76 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/04 10:15:36 by ydonse            #+#    #+#             */
-/*   Updated: 2020/09/01 12:34:35 by rballage         ###   ########.fr       */
+/*   Created: 2020/09/13 18:00:07 by rballage          #+#    #+#             */
+/*   Updated: 2020/09/13 20:48:24 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	assemble_str(t_plist *list, const char *restrict format, char *str)
+void		assemble_str(t_plist *list, const char *fmt, char *str)
 {
-	int		i;
 	int		j;
 	int		k;
 
-	i = 0;
 	j = 0;
 	k = 0;
-	while (format[j])
+	while (fmt[j])
 	{
-		if (format[j] == '%' && format[j + 1])
+		if (fmt[j] == '%' && fmt[j + 1])
 		{
-
-			// else if (list->type_entree == character && list->type.c == '\0' && list->minus)
-			// {
-			// 	str[i++] = '\0';
-			// 	k++;
-			// }
-			if (list->reslen && list->type_entree == character && list->type.c == '\0' && list->nb_size == 1 && !list->string)
+			if (list->reslen && list->type == chr && list->data.c
+				== '\0' && list->nb_l == 1 && !list->string)
 				while (k < list->reslen)
-					str[i++] = list->res[k++];
+					*(str++) = list->res[k++];
 			else
 				while (list->res[k])
-					str[i++] = list->res[k++];
-			// if (list->type_entree == character && list->type.c == '\0' && list->nb_size == 1)
-			// 	str[i++] = '\0';
+					*(str++) = list->res[k++];
 			k = 0;
 			j += list->skip;
 			list = list->next;
 		}
-		else if (format[j] == '%' && !format[j + 1])
+		else if (fmt[j] == '%' && !fmt[j + 1])
 			j++;
 		else
-			str[i++] = format[j++];
+			*(str++) = fmt[j++];
 	}
-	str[i] = '\0';
 }
 
-int		get_full_str_size(t_plist *list, const char *restrict format)
+int			get_full_str_size(t_plist *list, const char *fmt)
 {
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	while (format[j])
+	while (fmt[j])
 	{
-		if (format[j] == '%' && format[j + 1])
+		if (fmt[j] == '%' && fmt[j + 1])
 		{
-			if (list->nb_size == 1 && list->type_entree == character && list->type.c == '\0' && !list->string)
+			if (list->nb_l == 1 && list->type && !list->data.c && !list->string)
 				i += list->reslen;
 			else
 				i += ft_strlen(list->res);
-				// printf("%s skip:%d\n", "0 non detecté", list->skip);
-
-
 			j += list->skip;
 			list = list->next;
 		}
-		else if (format[j] == '%' && !format[j + 1])
+		else if (fmt[j] == '%' && !fmt[j + 1])
 			break ;
 		else
 		{
@@ -83,7 +70,7 @@ int		get_full_str_size(t_plist *list, const char *restrict format)
 	return (i);
 }
 
-int		write_full_str(t_plist *list, const char *restrict format)
+int			write_full_str(t_plist *list, const char *fmt)
 {
 	int		i;
 	char	*str;
@@ -93,18 +80,16 @@ int		write_full_str(t_plist *list, const char *restrict format)
 	size = 0;
 	i = 0;
 	origin = list;
-	size = get_full_str_size(list, format);
-	// if (!(str = malloc(sizeof(char) * (size + 1))))
-	// 	exit(0);// s
+	size = get_full_str_size(list, fmt);
 	str = ft_strnew(size);
 	list = origin;
-	assemble_str(list, format, str);
+	assemble_str(list, fmt, str);
 	i = write(1, str, size);
 	ft_strdel(&str);
 	return (i);
 }
 
-int		ft_printf(const char *restrict format, ...)
+int			ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	t_plist	*list;

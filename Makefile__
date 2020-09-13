@@ -65,8 +65,8 @@ SRC_NAME =  handle_c.c \
 			calcul_plus.c \
 			calcul_precision.c \
 			calcul_sharp.c \
-			check_cast_modifiers.c \
-			check_other_modifiers.c \
+			check_casts.c \
+			check_casts_llhh.c \
 			conv_hexa.c \
 			conv_octal.c \
 			ft_ftoa.c \

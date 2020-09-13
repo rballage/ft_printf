@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calcul_sharp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 11:22:02 by ydonse            #+#    #+#             */
-/*   Updated: 2020/09/09 15:09:10 by rballage         ###   ########.fr       */
+/*   Created: 2020/09/13 17:58:04 by rballage          #+#    #+#             */
+/*   Updated: 2020/09/13 17:58:07 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ int	check_sharp_hexa_field(t_plist *list, long double nb, int i, char *str)
 int	check_sharp_octal(t_plist *list, long double nb, int i, char *str)
 {
 	if (list->sharp == 1 && list->mode == OCTAL && nb > 0
-		&& list->precision <= list->nb_size)
+		&& list->prec <= list->nb_l)
 		str[i++] = '0';
 	else if (list->sharp == 1 && list->mode == OCTAL && nb == 0
-		&& list->dot && list->precision == 0)
+		&& list->dot && list->prec == 0)
 		str[i++] = '0';
 	return (i);
 }

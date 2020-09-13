@@ -6,7 +6,7 @@
 #    By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 16:39:25 by ydonse            #+#    #+#              #
-#    Updated: 2020/09/10 19:27:13 by rballage         ###   ########.fr        #
+#    Updated: 2020/09/13 21:51:25 by rballage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC_NAME =  handle_c.c \
 			handle_d_l.c \
 			handle_d_ll.c \
 			handle_f.c \
-			handle_f_l.c \
 			handle_f_l_maj.c \
 			handle_null.c \
 			handle_o.c \
@@ -58,14 +57,15 @@ SRC_NAME =  handle_c.c \
 			ft_strjoinf.c \
 			search_setters.c \
 			attribute_check.c \
+			attributes_copy.c \
 			attributes_calculs.c \
 			calcul_min_field.c \
 			calcul_neg_min_field.c \
 			calcul_plus.c \
 			calcul_precision.c \
 			calcul_sharp.c \
-			check_cast_modifiers.c \
-			check_other_modifiers.c \
+			check_casts.c \
+			check_casts_llhh.c \
 			conv_hexa.c \
 			conv_octal.c \
 			ft_ftoa.c \
@@ -82,7 +82,7 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 OBJ_PATH = obj
 
-DFLAGS = 
+DFLAGS =
 
 HEADER_PATH = includes/
 
@@ -110,15 +110,17 @@ $(OBJ_PATH):
 
 clean:
 	make clean -C libft/
-	rm -f $(OBJ) $(OBJ:.o=.d)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
 	make fclean -C libft/
 	rm -f $(NAME)
+	rm -f libft.a
 
 re: fclean
 	$(MAKE) all
+
+bonus: $(NAME)
 
 .PHONY: make clean fclean re
 

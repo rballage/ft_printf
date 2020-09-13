@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conv_octal.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/13 17:59:19 by rballage          #+#    #+#             */
+/*   Updated: 2020/09/13 17:59:22 by rballage         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*convert_octal(unsigned long long nb)
+char		*convert_octal(unsigned long long nb)
 {
-	int						i;
-	char					*str;
+	int		i;
+	char	*str;
 
 	i = ft_baselen(nb, 8);
 	if (!(str = malloc(sizeof(char) * (i + 1))))

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conv_hexa.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/13 17:58:44 by rballage          #+#    #+#             */
+/*   Updated: 2020/09/13 17:59:27 by rballage         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*convert_hexa(unsigned long long nb, t_plist *list)
+char					*convert_hexa(unsigned long long nb, t_plist *list)
 {
 	static const char	hexa_str[17] = "0123456789abcdef";
 	int					i;

@@ -1,24 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_null.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/13 18:03:09 by rballage          #+#    #+#             */
+/*   Updated: 2020/09/13 18:03:21 by rballage         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void	handle_null(t_plist *list, const char *format, int ptr)
+void		handle_null(t_plist *list, const char *fmt, int ptr)
 {
-	char *save;
+	char	*save;
 
 	save = NULL;
-	list->type.c = *format;
-	if (!list->type.c)
+	list->data.c = *fmt;
+	if (!list->data.c)
 	{
-		list->type.c = '.';
+		list->data.c = '.';
 		list->res = ft_strnew(0);
 	}
 	else
-		list->res = ft_strdup(&(list->type.c));
+		list->res = ft_strdup(&(list->data.c));
 	save = list->res;
-	list->type_entree = character;
+	list->type = chr;
 	list->skip += ptr;
 	if (list->res[0] == '\0')
 		list->skip--;
-	list->res = add_attributes(list, 0);
+	if (!list->noflag)
+		list->res = add_attributes(list, 0);
 	if (save != list->res)
 		free(save);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calcul_plus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydonse <ydonse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 16:14:25 by ydonse            #+#    #+#             */
-/*   Updated: 2019/03/02 11:10:52 by ydonse           ###   ########.fr       */
+/*   Created: 2020/09/13 17:54:42 by rballage          #+#    #+#             */
+/*   Updated: 2020/09/13 17:54:44 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_plus(t_plist *list, long double nb, int i, char *str)
 {
 	if (list->plus == 1 && nb >= 0 && !list->mode &&
-		list->type_entree == number && !list->uns)
+		list->type == nbr && !list->uns)
 		str[i++] = '+';
 	i = check_space(list, nb, i, str);
 	return (i);
@@ -24,7 +24,7 @@ int	check_plus(t_plist *list, long double nb, int i, char *str)
 int	check_space(t_plist *list, long double nb, int i, char *str)
 {
 	if (list->space == 1 && nb >= 0 && !list->mode
-		&& !list->plus && list->type_entree == number && !list->uns)
+		&& !list->plus && list->type == nbr && !list->uns)
 		str[i++] = ' ';
 	return (i);
 }
