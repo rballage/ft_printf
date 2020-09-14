@@ -6,7 +6,7 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 17:54:06 by rballage          #+#    #+#             */
-/*   Updated: 2020/09/13 23:53:26 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/14 10:01:58 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,12 @@ int	check_field(t_plist *list, long double nb, int i, char *str)
 {
 	if (list->zero && nb < 0)
 		str[i++] = '-';
-	if ((list->min_w > list->nb_l || (list->min_w >= list->nb_l && list->nb_l == 1
-		&& list->dot)) && list->min_w > list->prec
-		&& !list->minus && list->prec >= 0 && list->type == nbr)
+	if ((list->min_w > list->nb_l
+		|| (list->min_w >= list->nb_l && list->nb_l == 1 && list->dot))
+		&& list->min_w > list->prec
+		&& !list->minus
+		&& list->prec >= 0
+		&& list->type == nbr)
 		i = check_nb_field(list, nb, i, str);
 	if (list->type == chr && !list->minus)
 		i = check_char_field(list, i, str);

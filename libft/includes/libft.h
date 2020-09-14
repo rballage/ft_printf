@@ -6,13 +6,12 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 17:40:54 by rballage          #+#    #+#             */
-/*   Updated: 2020/09/13 22:49:43 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/14 10:05:53 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
@@ -97,10 +96,5 @@ void			ft_memdel(void **ap);
 char			*ft_llitoa(long long n);
 long			ft_abs(long nb);
 char			*ft_lutoa(unsigned long n);
-
-
-
-
-
 
 #endif
