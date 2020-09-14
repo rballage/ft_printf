@@ -6,7 +6,7 @@
 /*   By: rballage <rballage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 17:54:21 by rballage          #+#    #+#             */
-/*   Updated: 2020/09/13 20:51:19 by rballage         ###   ########.fr       */
+/*   Updated: 2020/09/13 23:56:08 by rballage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int			check_char_field_minus(t_plist *list, int i, char *str)
 
 int			check_field_minus(t_plist *list, long double nb, int i, char *str)
 {
-	if (list->min_w > list->nb_l && list->min_w > list->prec
+	if ((list->min_w > list->nb_l || (list->min_w >= list->nb_l && list->nb_l == 1
+		&& list->dot)) && list->min_w > list->prec
 	&& list->minus && list->type == nbr)
 		i = check_nb_field_minus(list, nb, i, str);
 	if (list->type == chr && list->minus)
